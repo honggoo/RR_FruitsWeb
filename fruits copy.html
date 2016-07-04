@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fruits FQA</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+    header.jumbotron {
+      background: url("001_T1_Card_v2.jpg");
+      <!-- background-color: #f0f0f0; -->
+      background-position: center center;  
+      background-size: center;
+    }
+   
+    @media screen and (max-width: 480px) {
+      header.jumbotron .container p {
+        font-size: 16px;
+      }
+    }
+    
+    header .container {
+      margin-top: 8%;
+    }
+    
+    header .midashi-btn {
+      border: 1px solid #fff;
+      color: #fff;
+      border-radius: 0;
+    }
+    
+    header .midashi-btn:hover {
+      color: #0089ff;
+      border-color: #0089ff;
+    }
+    
+    .navbar-form {
+      padding-right: 1px;
+    }
+    
+    .main-content .content-area {
+      padding: 15px 15px;
+    }
+    
+    .sidebar aside {
+      background: #fcf0f0;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 15px;
+    }
+    </style>
+  </head>
+  <body>   
+
+    
+    <nav class="navbar navbar-inverse navbar-fixed-top">      
+      <div class="navbar-header">
+        <a class="navbar-brand" href=" fruits.html">CCI 果物・野菜百科事典 ...powered by IBM Watson</a>
+      </div>
+    </nav>    
+ 	
+   
+    
+	<CENTER>
+	<header class="jumbotron">
+	<BR>
+	    <font color="white" size=4>
+	    次の果物・野菜の色や旬の時期、効能についてWatson君に聞いてみましょう！<BR><BR>
+	    </font>
+	    
+	    <font color="red" size=4>
+	    りんご　…　いちご　…　トマト　…　
+	    </font>	    
+	    <font color="orange" size=4>
+	    オレンジ　…　マンゴ　…　びわ<BR>
+	    </font>
+	    
+	    <font color="yellow" size=4>
+	    バナナ　…　パイナップル　…　レモン　…　
+	    </font>	    
+	    <font color="green" size=4>
+	    アボガド　…　キウイ　…　すいか<BR>
+	    </font>
+	    
+	    <font color="magenta" size=4>
+	    ブルーベリー　…　ぶどう　…　ナス　…　
+	    </font>
+	    
+	    <font color="white" size=4>
+	    れんこん　…　だいこん　…　キャベツ<BR>
+	    </font>
+	    
+	    <font color="darkgrey" size=4>
+	    ごぼう　…　じゃがいも　…　松茸　…　
+	    </font>
+	    <BR><BR><BR>
+	    
+	    <font color="cyan" size=4>
+	    例）<BR>
+	    りんごの色はなんですか？<BR>
+	    アボガドの旬の時期はいつですか？<BR>
+	    ごぼうの効能について教えてください。<BR>
+	    </font>
+	    
+	    <BR><BR><BR>
+        
+        <input type="text" id="question" name="question" class="username" size="50" placeholder="ごぼうの効能について教えてください。">
+        &nbsp&nbsp<input type="button" value="Watson" onClick="watson_fruits()">
+        <BR>
+        <font color="cyan" size=4>
+        <label for="kanso">Watson君の回答：</label><br>
+        </font>
+        <p>
+        <textarea id="answer" name="answer" cols="42" rows="2"  placeholder="考え中…"></textarea>
+        </p>>
+
+
+	</CENTER>
+    
+    
+    <script language="javascript" type="text/javascript">
+    function watson_fruits() {
+    
+        var question = document.getElementById('question').value;
+	    // サーバーに情報を問い合わせ
+	    $.ajax({
+	        type: "POST",
+	        url: "http://cci-icr.sakura.ne.jp/RR_FruitsWeb/fruits.php",
+	        data: {'question':question},
+	        success: function(msg){
+	            if (msg == 'notfound') {
+					console.log("Background script has received a message from Server:'" + msg + "'");
+	                return;
+	            }
+	            else{
+					console.log("Background script has received a message from Server:'" + msg );				
+                    document.getElementById('answer').value=msg;
+				}
+	        }
+	    });
+    }
+    </script>
+    
+	
+    <!--フッターを追加-->
+    <footer class="container-fluid">
+      <small><a href="http://www.cci.co.jp/">Copyright (C) CCI Creative Team All Rights Reserved 2016.</a></small>
+    </footer>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
